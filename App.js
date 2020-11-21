@@ -20,7 +20,7 @@ const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <SafeAreaView style={styles.screen}>
         {/* View for simon and score */}
         <View>
           {/* Simon */}
@@ -49,10 +49,11 @@ const App: () => React$Node = () => {
 };
 
 const styles = StyleSheet.create({
-  view:{
-    borderWidth: 1,
-    borderColor: black,
-  }
+  screen:{
+    flex: 1, 
+    backgroundColor: 'green'
+
+  },
   
 });
 
