@@ -16,31 +16,36 @@ import {
   StatusBar,
 } from 'react-native';
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
+        {/* Padding */}
+        <View style={{flex: .3}}></View> 
         {/* View for simon and score */}
-        <View>
+        <View style={styles.nonTouchableArea}>
           {/* Simon */}
-          <View>
+          <View style={styles.view}>
             {/* Four cirlces */}
           </View>
+          {/* padding */}
+          <View style={{flex: .5}}></View>
           {/* Count */}
-          <View>
+          <View style={styles.view}>
             {/* Highest Count */}
-            <View>
-              <Text></Text>
+            <View style={styles.view}>
+              <Text style={{color: 'black'}}>Highest Count: </Text>
             </View>
+            
             {/* Current Count */}
-            <View>
-              <Text></Text>
+            <View style={styles.view}>
+              <Text>Count: </Text>
             </View>
           </View>
         </View>
         {/* View for Touch area */}
-        <View>
+        <View style={styles.interactiveArea}>
           {/* Four cirlces */}
         </View>
       </SafeAreaView>
@@ -50,8 +55,21 @@ const App: () => React$Node = () => {
 
 const styles = StyleSheet.create({
   view:{
+    flex: 1,
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: black,
+
+  },
+  nonTouchableArea: {
+    flex: 1,
+    flexDirection: 'row',
+    
+  },
+  counterView: {
+
+  },
+  interactiveArea: {
+    flex: 4
   }
   
 });
