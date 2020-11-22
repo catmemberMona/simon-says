@@ -79,9 +79,10 @@ const App = () => {
         <View style={{flex: .3}}></View> 
         {/*-------------------------------------------- View for simon and score */}
         <View style={styles.nonTouchableArea}>
-          {/*------------------------------------------------------------- Simon */}
+          {/*------------------------------------------------------------- Simon and Start button */}
           <View style={styles.view}>
             {(buttonStatus) ?
+              // when game already started, button previously pressed
               <View
                 style={{...styles.columns, 
                   backgroundColor: 'transparent', 
@@ -95,6 +96,7 @@ const App = () => {
               >
                 <Text style={{color: 'white'}}>{remainingClicks}</Text>
               </View> :
+              // when start button hasn't been pressed yet
               <TouchableHighlight 
                   underlayColor='white'
                   style={{...styles.columns, 
@@ -173,9 +175,6 @@ const App = () => {
                 }}>YELLOW</Text>
               </TouchableHighlight>
               {/*------------------------------------------------- Middle  */}
-              {/* <View style={{alignSelf: 'center'}}>
-                <Text>Current Count Remaining</Text>
-              </View> */}
               <TouchableHighlight 
                 underlayColor='green'
                 style={{...styles.columns, 
