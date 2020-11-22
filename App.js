@@ -46,11 +46,11 @@ const App = () => {
           <View style={styles.view}>
             {/* Highest Count */}
             <View style={styles.view}>
-              <Text style={{color: 'black'}}>Highest Accuracy: </Text>
+              <Text style={{color: 'white'}}>Highest Accuracy: </Text>
             </View>
             {/* Current Count */}
             <View style={styles.view}>
-              <Text>Pressed this Round: {count}</Text>
+              <Text style={{color: 'white'}}>Pressed this Round: {count}</Text>
             </View>
           </View>
         </View>
@@ -69,13 +69,17 @@ const App = () => {
                 style={{...styles.columns, 
                   backgroundColor: 'pink', 
                   ...styles.buttons,
-                  position: 'absolute',
+                  position: 'relative',
                   top: 25,
                   left: 133.33,
                 }}
                 onPress={correct}
               >
-                <Text>RED</Text>
+                <Text style={{...styles.colorText, 
+                  position: 'relative',
+                  top: 20,
+                  left: 32
+                  }}>RED</Text>
               </TouchableHighlight>
               {/* <View style={styles.columns}></View> */}
             </View>
@@ -87,17 +91,20 @@ const App = () => {
                 underlayColor='yellow'
                 style={{...styles.columns, 
                   backgroundColor: 'lightyellow',
-                  position: 'absolute',
+                  position: 'relative',
                   left: 25,
                   ...styles.buttons,}}
                 onPress={correct}
               >
-                <Text>YELLOW</Text>
+                <Text style={{...styles.colorText,  
+                top: 30,
+                left: 15
+                }}>YELLOW</Text>
               </TouchableHighlight>
               {/*------------------------------------------------- Middle  */}
-              <View style={{flex: .5, alignSelf: 'center'}}>
+              {/* <View style={{alignSelf: 'center'}}>
                 <Text>Current Count Remaining</Text>
-              </View>
+              </View> */}
               <TouchableHighlight 
                 underlayColor='green'
                 style={{...styles.columns, 
@@ -108,7 +115,10 @@ const App = () => {
                 }
                 onPress={correct}
               >
-                <Text>GREEN</Text>
+                <Text style={{...styles.colorText,
+                top: 28,
+                left: 20
+                }}>GREEN</Text>
               </TouchableHighlight>
             </View>
             {/*--------------------------------------------------------- Third row */}
@@ -124,7 +134,10 @@ const App = () => {
                 }
                 onPress={correct}
               >
-                <Text>BLUE</Text>
+                <Text style={{...styles.colorText,
+                top: 23,
+                left: 26
+                }}>BLUE</Text>
               </TouchableHighlight>
               {/* <View style={styles.columns}></View> */}
             </View>
@@ -139,12 +152,13 @@ const App = () => {
 const styles = StyleSheet.create({
   screen:{
     flex: 1, 
-    backgroundColor: 'darkgrey'
+    backgroundColor: 'black'
   },
   view:{
     flex: 1,
     borderStyle: 'solid',
     borderWidth: 1,
+    borderColor: 'white'
 
   },
   nonTouchableArea: {
@@ -185,6 +199,16 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     transform: [{ rotate: "45deg" }]
 
+  },
+  colorText: {
+    transform: [{ rotate: "-45deg" }],
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '400',
+    // backgroundColor: 'white',
+    // position: 'relative',
+    // top: 25,
+    // left: 35
   }
 
   
