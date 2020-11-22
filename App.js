@@ -72,13 +72,33 @@ const App = () => {
               <View style={styles.columns}></View>
             </View>
             <View style={styles.rows}>
-            <View style={styles.columns}></View>
-              <View style={styles.columns}></View>
-              <View style={styles.columns}></View>
+              <TouchableHighlight 
+                underlayColor='yellow'
+                style={{...styles.columns, backgroundColor: 'lightyellow'}}
+                onPress={correct}
+              >
+                <Text>HIII</Text>
+              </TouchableHighlight>
+              <View style={styles.columns}>
+                <Text>Current Count Remaining</Text>
+              </View>
+              <TouchableHighlight 
+                underlayColor='green'
+                style={{...styles.columns, backgroundColor: 'lightgreen'}}
+                onPress={correct}
+              >
+                <Text>HIII</Text>
+              </TouchableHighlight>
             </View>
             <View style={styles.rows}>
-            <View style={styles.columns}></View>
               <View style={styles.columns}></View>
+              <TouchableHighlight 
+                underlayColor='blue'
+                style={{...styles.columns, backgroundColor: 'lightblue'}}
+                onPress={correct}
+              >
+                <Text>HIII</Text>
+              </TouchableHighlight>
               <View style={styles.columns}></View>
             </View>
           </View>
