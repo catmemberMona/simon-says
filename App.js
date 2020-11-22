@@ -20,7 +20,7 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={styles.screen}>
         {/* Padding */}
         <View style={{flex: .3}}></View> 
         {/* View for simon and score */}
@@ -54,6 +54,9 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  screen:{
+    flex: 1, 
+  },
   view:{
     flex: 1,
     borderStyle: 'solid',
@@ -70,7 +73,8 @@ const styles = StyleSheet.create({
   },
   interactiveArea: {
     flex: 4
-  }
+  },
+
   
 });
 
