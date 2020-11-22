@@ -60,35 +60,47 @@ const App = () => {
           <View style={styles.interactiveArea}>
             {/* ------------------------------------------------------Four cirlces */}
             {/*--------------------------------------------------------- First row */}
-            <View style={styles.rows}>
-              <View style={styles.columns}></View>
+            <View style={{...styles.rows,
+              alignSelf: 'center',
+              width: 133.33
+              }}>
+              {/* <View style={styles.columns}></View> */}
               <TouchableHighlight 
                 underlayColor='red'
-                style={{...styles.columns, backgroundColor: 'pink'}}
+                style={{...styles.columns, 
+                  backgroundColor: 'pink', 
+                  ...styles.buttons,
+        
+                }}
                 onPress={correct}
               >
-                <Text>HIII</Text>
+                <Text>RED</Text>
               </TouchableHighlight>
-              <View style={styles.columns}></View>
+              {/* <View style={styles.columns}></View> */}
             </View>
             {/*--------------------------------------------------------- Second row */}
             <View style={styles.rows}>
               <TouchableHighlight 
                 underlayColor='yellow'
-                style={{...styles.columns, backgroundColor: 'lightyellow'}}
+                style={{...styles.columns, 
+                  backgroundColor: 'lightyellow',
+                  ...styles.buttons,}}
                 onPress={correct}
               >
-                <Text>HIII</Text>
+                <Text>YELLOW</Text>
               </TouchableHighlight>
               <View style={styles.columns}>
                 <Text>Current Count Remaining</Text>
               </View>
               <TouchableHighlight 
                 underlayColor='green'
-                style={{...styles.columns, backgroundColor: 'lightgreen'}}
+                style={{...styles.columns, 
+                  ...styles.buttons, 
+                  backgroundColor: 'lightgreen'}
+                }
                 onPress={correct}
               >
-                <Text>HIII</Text>
+                <Text>GREEN</Text>
               </TouchableHighlight>
             </View>
             {/*--------------------------------------------------------- Third row */}
@@ -96,10 +108,13 @@ const App = () => {
               <View style={styles.columns}></View>
               <TouchableHighlight 
                 underlayColor='blue'
-                style={{...styles.columns, backgroundColor: 'lightblue'}}
+                style={{...styles.columns,
+                  ...styles.buttons, 
+                  backgroundColor: 'lightblue'}
+                }
                 onPress={correct}
               >
-                <Text>HIII</Text>
+                <Text>BLUE</Text>
               </TouchableHighlight>
               <View style={styles.columns}></View>
             </View>
@@ -114,6 +129,7 @@ const App = () => {
 const styles = StyleSheet.create({
   screen:{
     flex: 1, 
+    backgroundColor: 'darkgrey'
   },
   view:{
     flex: 1,
@@ -135,8 +151,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   interactiveArea: {
-    borderStyle: 'solid',
-    borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderWidth: 1,
     color: 'red',
     width: 400,
     height: 400,
@@ -144,16 +160,19 @@ const styles = StyleSheet.create({
   rows: {
     flex: 1,
     flexDirection: 'row',
-    borderStyle: 'solid',
-    borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderWidth: 1,
   },
   columns: {
     flex: 1,
-    borderStyle: 'solid',
-    borderWidth: 1,
+    // borderRadius: 100,
+    // backgroundColor: 'green'
+    // borderStyle: 'solid',
+    // borderWidth: 1,
   },
   buttons:{
-    
+    // width: 133,
+    borderRadius: 100,
 
   }
   
