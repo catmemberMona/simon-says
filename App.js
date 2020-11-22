@@ -73,7 +73,7 @@ const App = () => {
     setBtnStatus(true);
   }
 
-  
+
 
   return (
     <>
@@ -88,30 +88,14 @@ const App = () => {
             {(buttonStatus) ?
               // when game already started, button previously pressed
               <View
-                style={{...styles.columns, 
-                  backgroundColor: 'transparent', 
-                  flex: 1,
-                  borderRadius: 100,
-                  borderColor: 'white',
-                  borderWidth: 3,
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
+                style={styles.startButton}
               >
                 <Text style={{color: 'white'}}>{remainingClicks}</Text>
               </View> :
               // when start button hasn't been pressed yet
               <TouchableHighlight 
                   underlayColor='white'
-                  style={{...styles.columns, 
-                    backgroundColor: 'transparent', 
-                    flex: 1,
-                    borderRadius: 100,
-                    borderColor: 'white',
-                    borderWidth: 3,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
+                  style={styles.startButton}
                   onPress={() => {
                     startBtn();
                   }}
@@ -265,6 +249,16 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: '400',
+  },
+  startButton: {
+    ...this.columns, 
+    backgroundColor: 'transparent', 
+    flex: 1,
+    borderRadius: 100,
+    borderColor: 'white',
+    borderWidth: 3,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 
   
