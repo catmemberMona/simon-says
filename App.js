@@ -61,6 +61,16 @@ const App = () => {
     setPicks(thisPicks);
   }
 
+  const startBtn = () => {
+    // if start button was already pressed, disable start button
+    if (buttonStatus) return;
+
+    // when start button is pressed for the first time
+    generateRandomColors(numOfPicks); 
+    setRemaining(picks.length);
+    setBtnStatus(true);
+  }
+
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -83,13 +93,10 @@ const App = () => {
                   alignItems: 'center'
                 }}
                 onPress={() => {
-                  generateRandomColors(numOfPicks); 
-                  setRemaining(picks.length);
-                  setBtnStatus(true);
-                  
+                  startBtn();
                 }}
               >
-                <Text style={{color: 'white'}}>Start</Text>
+                <Text style={{color: 'white'}}>{(buttonStatus) ? remainingClicks : 'Start'}</Text>
               </TouchableHighlight>
           </View>
           {/* padding */}
