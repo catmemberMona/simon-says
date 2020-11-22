@@ -44,10 +44,29 @@ const App = () => {
             </View>
           </View>
         </View>
-        {/* View for Touch area */}
-        <View style={styles.interactiveArea}>
-          {/* Four cirlces */}
+        {/* Padding */}
+        <View style={styles.bottomHalf}>
+          {/* View for Touch area */}
+          <View style={styles.interactiveArea}>
+            {/* Four cirlces */}
+            <View style={styles.rows}>
+              <View style={styles.columns}></View>
+              <View style={styles.columns}></View>
+              <View style={styles.columns}></View>
+            </View>
+            <View style={styles.rows}>
+            <View style={styles.columns}></View>
+              <View style={styles.columns}></View>
+              <View style={styles.columns}></View>
+            </View>
+            <View style={styles.rows}>
+            <View style={styles.columns}></View>
+              <View style={styles.columns}></View>
+              <View style={styles.columns}></View>
+            </View>
+          </View>
         </View>
+        
       </SafeAreaView>
     </>
   );
@@ -71,9 +90,31 @@ const styles = StyleSheet.create({
   counterView: {
 
   },
-  interactiveArea: {
-    flex: 4
+  bottomHalf: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
+  interactiveArea: {
+    borderStyle: 'solid',
+    borderWidth: 1,
+    color: 'red',
+    width: 400,
+    height: 400,
+  },
+  rows: {
+    flex: 1,
+    flexDirection: 'row',
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  columns: {
+    flex: 1,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    
+  }
+  
 
   
 });
