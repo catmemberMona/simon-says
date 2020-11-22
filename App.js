@@ -34,7 +34,7 @@ const App = () => {
       <SafeAreaView style={styles.screen}>
         {/* Padding */}
         <View style={{flex: .3}}></View> 
-        {/* View for simon and score */}
+        {/*-------------------------------------------- View for simon and score */}
         <View style={styles.nonTouchableArea}>
           {/* Simon */}
           <View style={styles.view}>
@@ -42,16 +42,15 @@ const App = () => {
           </View>
           {/* padding */}
           <View style={{flex: .5}}></View>
-          {/* Count */}
+          {/* ------------------------------------------------------------ Count */}
           <View style={styles.view}>
             {/* Highest Count */}
             <View style={styles.view}>
-              <Text style={{color: 'black'}}>Highest Count: </Text>
+              <Text style={{color: 'black'}}>Highest Accuracy: </Text>
             </View>
-            
             {/* Current Count */}
             <View style={styles.view}>
-              <Text>Count: {count}</Text>
+              <Text>Pressed this Round: {count}</Text>
             </View>
           </View>
         </View>
@@ -59,7 +58,8 @@ const App = () => {
         <View style={styles.bottomHalf}>
           {/* View for Touch area */}
           <View style={styles.interactiveArea}>
-            {/* Four cirlces */}
+            {/* ------------------------------------------------------Four cirlces */}
+            {/*--------------------------------------------------------- First row */}
             <View style={styles.rows}>
               <View style={styles.columns}></View>
               <TouchableHighlight 
@@ -71,6 +71,7 @@ const App = () => {
               </TouchableHighlight>
               <View style={styles.columns}></View>
             </View>
+            {/*--------------------------------------------------------- Second row */}
             <View style={styles.rows}>
               <TouchableHighlight 
                 underlayColor='yellow'
@@ -90,6 +91,7 @@ const App = () => {
                 <Text>HIII</Text>
               </TouchableHighlight>
             </View>
+            {/*--------------------------------------------------------- Third row */}
             <View style={styles.rows}>
               <View style={styles.columns}></View>
               <TouchableHighlight 
