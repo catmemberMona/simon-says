@@ -81,8 +81,8 @@ const App = () => {
         <View style={styles.nonTouchableArea}>
           {/*------------------------------------------------------------- Simon */}
           <View style={styles.view}>
-            <TouchableHighlight 
-                underlayColor='white'
+            {(buttonStatus) ?
+              <View
                 style={{...styles.columns, 
                   backgroundColor: 'transparent', 
                   flex: 1,
@@ -92,12 +92,28 @@ const App = () => {
                   justifyContent: 'center',
                   alignItems: 'center'
                 }}
-                onPress={() => {
-                  startBtn();
-                }}
               >
-                <Text style={{color: 'white'}}>{(buttonStatus) ? remainingClicks : 'Start'}</Text>
-              </TouchableHighlight>
+                <Text style={{color: 'white'}}>{remainingClicks}</Text>
+              </View> :
+              <TouchableHighlight 
+                  underlayColor='white'
+                  style={{...styles.columns, 
+                    backgroundColor: 'transparent', 
+                    flex: 1,
+                    borderRadius: 100,
+                    borderColor: 'white',
+                    borderWidth: 3,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                  onPress={() => {
+                    startBtn();
+                  }}
+                >
+                  <Text style={{color: 'white'}}>Start</Text>
+                </TouchableHighlight>
+            }
+            
           </View>
           {/* padding */}
           <View style={{flex: .6}}></View>
