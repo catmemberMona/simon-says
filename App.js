@@ -36,19 +36,19 @@ const App = () => {
         <View style={{flex: .3}}></View> 
         {/*-------------------------------------------- View for simon and score */}
         <View style={styles.nonTouchableArea}>
-          {/* Simon */}
+          {/*------------------------------------------------------------- Simon */}
           <View style={styles.view}>
-            {/* Four cirlces */}
+            {/*---------------------------------------------------- Four buttons */}
           </View>
           {/* padding */}
           <View style={{flex: .5}}></View>
           {/* ------------------------------------------------------------ Count */}
           <View style={styles.view}>
-            {/* Highest Count */}
+            {/*--------------------------------------------------- Highest Count */}
             <View style={styles.view}>
               <Text style={{color: 'white'}}>Highest Accuracy: </Text>
             </View>
-            {/* Current Count */}
+            {/*--------------------------------------------------- Current Count */}
             <View style={styles.view}>
               <Text style={{color: 'white'}}>Pressed this Round: {count}</Text>
             </View>
@@ -56,14 +56,11 @@ const App = () => {
         </View>
         {/* Padding */}
         <View style={styles.bottomHalf}>
-          {/* View for Touch area */}
+          {/* -------------------------------------------------View for Touch area */}
           <View style={styles.interactiveArea}>
             {/* ------------------------------------------------------Four cirlces */}
             {/*--------------------------------------------------------- First row */}
-            <View style={{...styles.rows,
-              // alignSelf: 'center',
-              }}>
-              {/* <View style={styles.columns}></View> */}
+            <View style={{...styles.rows}}>
               <TouchableHighlight 
                 underlayColor='red'
                 style={{...styles.columns, 
@@ -81,7 +78,6 @@ const App = () => {
                   left: 32
                   }}>RED</Text>
               </TouchableHighlight>
-              {/* <View style={styles.columns}></View> */}
             </View>
             {/*--------------------------------------------------------- Second row */}
             <View style={{...styles.rows, 
@@ -123,7 +119,6 @@ const App = () => {
             </View>
             {/*--------------------------------------------------------- Third row */}
             <View style={{...styles.rows, justifyContent: 'center'}}>
-              {/* <View style={styles.columns}></View> */}
               <TouchableHighlight 
                 underlayColor='blue'
                 style={{...styles.columns,
@@ -139,7 +134,6 @@ const App = () => {
                 left: 26
                 }}>BLUE</Text>
               </TouchableHighlight>
-              {/* <View style={styles.columns}></View> */}
             </View>
           </View>
         </View>
@@ -175,23 +169,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   interactiveArea: {
-    // borderStyle: 'solid',
-    // borderWidth: 1,
     width: 400,
     height: 400,
   },
   rows: {
     flex: 1,
-    // flexDirection: 'row',
-    // borderStyle: 'solid',
-    // borderWidth: 1,
-  },
-  columns: {
-    // flex: 1,
-    // borderRadius: 100,
-    // backgroundColor: 'green'
-    // borderStyle: 'solid',
-    // borderWidth: 1,
   },
   buttons:{
     width: 133,
@@ -205,10 +187,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: '400',
-    // backgroundColor: 'white',
-    // position: 'relative',
-    // top: 25,
-    // left: 35
   }
 
   
@@ -216,9 +194,5 @@ const styles = StyleSheet.create({
   
 });
 
-/*
-notes: round buttons using borderRadius - clickable outside of circle - change shapes 
-
-*/ 
 
 export default App;
