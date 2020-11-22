@@ -61,8 +61,7 @@ const App = () => {
             {/* ------------------------------------------------------Four cirlces */}
             {/*--------------------------------------------------------- First row */}
             <View style={{...styles.rows,
-              alignSelf: 'center',
-              width: 133.33
+              // alignSelf: 'center',
               }}>
               {/* <View style={styles.columns}></View> */}
               <TouchableHighlight 
@@ -70,7 +69,9 @@ const App = () => {
                 style={{...styles.columns, 
                   backgroundColor: 'pink', 
                   ...styles.buttons,
-        
+                  position: 'absolute',
+                  top: 25,
+                  left: 133.33,
                 }}
                 onPress={correct}
               >
@@ -79,23 +80,30 @@ const App = () => {
               {/* <View style={styles.columns}></View> */}
             </View>
             {/*--------------------------------------------------------- Second row */}
-            <View style={styles.rows}>
+            <View style={{...styles.rows, 
+              position: 'relative'
+            }}>
               <TouchableHighlight 
                 underlayColor='yellow'
                 style={{...styles.columns, 
                   backgroundColor: 'lightyellow',
+                  position: 'absolute',
+                  left: 25,
                   ...styles.buttons,}}
                 onPress={correct}
               >
                 <Text>YELLOW</Text>
               </TouchableHighlight>
-              <View style={styles.columns}>
+              {/*------------------------------------------------- Middle  */}
+              <View style={{flex: .5, alignSelf: 'center'}}>
                 <Text>Current Count Remaining</Text>
               </View>
               <TouchableHighlight 
                 underlayColor='green'
                 style={{...styles.columns, 
                   ...styles.buttons, 
+                  position: 'absolute',
+                  right: 25,
                   backgroundColor: 'lightgreen'}
                 }
                 onPress={correct}
@@ -104,19 +112,21 @@ const App = () => {
               </TouchableHighlight>
             </View>
             {/*--------------------------------------------------------- Third row */}
-            <View style={styles.rows}>
-              <View style={styles.columns}></View>
+            <View style={{...styles.rows, justifyContent: 'center'}}>
+              {/* <View style={styles.columns}></View> */}
               <TouchableHighlight 
                 underlayColor='blue'
                 style={{...styles.columns,
                   ...styles.buttons, 
+                  bottom: 25,
+                  left: 133.33,
                   backgroundColor: 'lightblue'}
                 }
                 onPress={correct}
               >
                 <Text>BLUE</Text>
               </TouchableHighlight>
-              <View style={styles.columns}></View>
+              {/* <View style={styles.columns}></View> */}
             </View>
           </View>
         </View>
@@ -153,31 +163,38 @@ const styles = StyleSheet.create({
   interactiveArea: {
     // borderStyle: 'solid',
     // borderWidth: 1,
-    color: 'red',
     width: 400,
     height: 400,
   },
   rows: {
     flex: 1,
-    flexDirection: 'row',
+    // flexDirection: 'row',
     // borderStyle: 'solid',
     // borderWidth: 1,
   },
   columns: {
-    flex: 1,
+    // flex: 1,
     // borderRadius: 100,
     // backgroundColor: 'green'
     // borderStyle: 'solid',
     // borderWidth: 1,
   },
   buttons:{
-    // width: 133,
-    borderRadius: 100,
+    width: 133,
+    height: 133,
+    borderRadius: 25,
+    transform: [{ rotate: "45deg" }]
 
   }
+
   
 
   
 });
+
+/*
+notes: round buttons using borderRadius - clickable outside of circle - change shapes 
+
+*/ 
 
 export default App;
