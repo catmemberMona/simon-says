@@ -29,6 +29,18 @@ const App = () => {
     setCount(0);
   }
 
+  // conditions for state of start button
+  const [buttonStatus, setBtnStatus] = useState(false);
+
+  const pressed = () => {
+    if (!buttonStatus) return;
+
+    // if the button is correct
+    correct();
+    // if the button is not correct
+  }
+
+
   // count starting at 1 and incrementing by 1 if user input is correct
   const [numOfPicks, setNumOfPicks] = useState(1);
  
@@ -71,8 +83,9 @@ const App = () => {
                   alignItems: 'center'
                 }}
                 onPress={() => {
-                  generateRandomColors(numOfPicks) 
+                  generateRandomColors(numOfPicks); 
                   setRemaining(picks.length);
+                  setBtnStatus(true);
                   
                 }}
               >
@@ -109,7 +122,7 @@ const App = () => {
                   top: 25,
                   left: 133.33,
                 }}
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText, 
                   position: 'relative',
@@ -129,7 +142,7 @@ const App = () => {
                   position: 'relative',
                   left: 25,
                   ...styles.buttons,}}
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText,  
                 top: 30,
@@ -148,7 +161,7 @@ const App = () => {
                   right: 25,
                   backgroundColor: 'lightgreen'}
                 }
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText,
                 top: 28,
@@ -166,7 +179,7 @@ const App = () => {
                   left: 133.33,
                   backgroundColor: 'lightblue'}
                 }
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText,
                 top: 23,
