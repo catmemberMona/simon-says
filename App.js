@@ -20,12 +20,33 @@ import {
 const App = () => {
 
   // counter updates after button pressed
+  // count for the whole game
   const [count, setCount] = useState(0);
   const correct = () => {
     setCount(count+1);
   }
   const incorrect = () => {
     setCount(0);
+  }
+
+  // count starting at 1 and incrementing by 1 if user input is correct
+  const [numOfPicks, setNumOfPicks] = useState(1);
+ 
+  // number of picks decrementing to show how many inputs remaining
+  const [remainingClicks, setRemaining] = useState(0);
+
+  // generating and adding simon's colors/picks
+  const [picks, setPicks] = useState([]);
+  
+  const generateRandomColors = (num) => {
+    const colors = ['red', 'green', 'yellow', 'blue'];
+    let thisPicks = [];
+    for (let i = 0; i < num; i++){
+      const randomInt = Math.floor(Math.random() * 4)
+      console.log(randomInt)
+      picks.push(colors[randomInt]);
+    }
+    setPicks(thisPicks);
   }
 
   return (
@@ -38,10 +59,28 @@ const App = () => {
         <View style={styles.nonTouchableArea}>
           {/*------------------------------------------------------------- Simon */}
           <View style={styles.view}>
-            {/*---------------------------------------------------- Four buttons */}
+            <TouchableHighlight 
+                underlayColor='white'
+                style={{...styles.columns, 
+                  backgroundColor: 'transparent', 
+                  flex: 1,
+                  borderRadius: 100,
+                  borderColor: 'white',
+                  borderWidth: 3,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+                onPress={() => {
+                  generateRandomColors(numOfPicks) 
+                  setRemaining(picks.length);
+                  
+                }}
+              >
+                <Text style={{color: 'white'}}>Start</Text>
+              </TouchableHighlight>
           </View>
           {/* padding */}
-          <View style={{flex: .5}}></View>
+          <View style={{flex: .6}}></View>
           {/* ------------------------------------------------------------ Count */}
           <View style={styles.view}>
             {/*--------------------------------------------------- Highest Count */}
