@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,9 +14,20 @@ import {
   View,
   Text,
   StatusBar,
+  TouchableHighlight,
 } from 'react-native';
 
 const App = () => {
+
+  // counter updates after button pressed
+  const [count, setCount] = useState(0);
+  const correct = () => {
+    setCount(count+1);
+  }
+  const incorrect = () => {
+    setCount(0);
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -40,7 +51,7 @@ const App = () => {
             
             {/* Current Count */}
             <View style={styles.view}>
-              <Text>Count: </Text>
+              <Text>Count: {count}</Text>
             </View>
           </View>
         </View>
@@ -51,7 +62,13 @@ const App = () => {
             {/* Four cirlces */}
             <View style={styles.rows}>
               <View style={styles.columns}></View>
-              <View style={styles.columns}></View>
+              <TouchableHighlight 
+                underlayColor='red'
+                style={{...styles.columns, backgroundColor: 'pink'}}
+                onPress={correct}
+              >
+                <Text>HIII</Text>
+              </TouchableHighlight>
               <View style={styles.columns}></View>
             </View>
             <View style={styles.rows}>
@@ -112,7 +129,10 @@ const styles = StyleSheet.create({
     flex: 1,
     borderStyle: 'solid',
     borderWidth: 1,
+  },
+  buttons:{
     
+
   }
   
 
