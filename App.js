@@ -20,7 +20,7 @@ import {
 const App = () => {
 
   // counter updates after button pressed
-  // count for the whole game
+  // ---------------------------------------------------------------- count for the whole game
   const [count, setCount] = useState(0);
   const correct = () => {
     setCount(count+1);
@@ -29,7 +29,16 @@ const App = () => {
     setCount(0);
   }
 
-  // conditions for state of start button
+
+  // ----------------------------------------------------------------- count for each rount 
+  // count starting at 1 and incrementing by 1 if user input is correct
+  const [numOfPicks, setNumOfPicks] = useState(1);
+ 
+  // number of picks decrementing to show how many inputs remaining
+  const [remainingClicks, setRemaining] = useState(0);
+
+
+  // ---------------------------------------------------- conditions for state of start button
   const [buttonStatus, setBtnStatus] = useState(false);
 
   const pressed = () => {
@@ -40,14 +49,7 @@ const App = () => {
     // if the button is not correct
   }
 
-
-  // count starting at 1 and incrementing by 1 if user input is correct
-  const [numOfPicks, setNumOfPicks] = useState(1);
- 
-  // number of picks decrementing to show how many inputs remaining
-  const [remainingClicks, setRemaining] = useState(0);
-
-  // generating and adding simon's colors/picks
+  // ------------------------------------------------generating and adding simon's colors/picks
   const [picks, setPicks] = useState([]);
   
   const generateRandomColors = (num) => {
@@ -70,6 +72,8 @@ const App = () => {
     setRemaining(picks.length);
     setBtnStatus(true);
   }
+
+  
 
   return (
     <>
@@ -127,7 +131,7 @@ const App = () => {
             </View>
             {/*--------------------------------------------------- Current Count */}
             <View style={styles.view}>
-              <Text style={{color: 'white'}}>Pressed this Round: {count}</Text>
+              <Text style={{color: 'white'}}>Pressed this Game: {count}</Text>
             </View>
           </View>
         </View>
