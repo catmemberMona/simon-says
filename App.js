@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.screen}>
         {/* Padding */}
         <View style={{flex: .3}}></View> 
