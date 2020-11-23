@@ -17,8 +17,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-const App = () => {
+import Start from './Componenets/Start'
+import Scores from './Componenets/Scores'
 
+
+const App = () => {
   // counter updates after button pressed
   // ---------------------------------------------------------------- count for the whole game
   const [count, setCount] = useState(0);
@@ -112,7 +115,7 @@ const App = () => {
   const isMatch = (usersPick) => {
     
     const pick = picks[userResCount];
-    console.log(usersPick, picks)
+    // console.log(usersPick, picks)
     if (usersPick === pick){
       setRemaining(remainingClicks - 1);
       setUserResCount(userResCount + 1);
@@ -141,44 +144,20 @@ const App = () => {
       <SafeAreaView style={styles.screen}>
         {/* Padding */}
         <View style={{flex: .3}}></View> 
-        {/*-------------------------------------------- View for simon and score */}
-        <View style={styles.nonTouchableArea}>
+        {/*-------------------------------------------- View for simon and score ,,,, rename nonTouchableArea */}
+        <View style={styles.nonTouchableArea}> 
           {/*------------------------------------------------------------- Simon and Start button */}
-          <View style={{...styles.view, backgroundColor: isCorrect}}>
-            {(!startBtnStatus) ?
-              // when game already started, button previously pressed
-              <View
-                style={{...styles.startButton, borderColor: color}}
-              >
-                <Text style={{color: 'white'}}>{remainingClicks}</Text>
-              </View> :
-              // when start button hasn't been pressed yet
-              <TouchableHighlight 
-                  underlayColor='white'
-                  style={styles.startButton}
-                  onPress={() => {
-                    startBtn();
-                    // console.log('picks inside of touch start button onpress:', picks)
-                  }}
-                >
-                  <Text style={{color: 'white'}}>Start</Text>
-                </TouchableHighlight>
-            }
-            
-          </View>
+          <Start 
+            isCorrect={isCorrect} 
+            startBtnStatus={startBtnStatus} 
+            color={color} 
+            remainingClicks={remainingClicks} 
+            startBtn={startBtn}
+            />
           {/* padding */}
           <View style={{flex: .6}}></View>
-          {/* ------------------------------------------------------------ Count */}
-          <View style={styles.view}>
-            {/*--------------------------------------------------- Highest Count */}
-            <View style={styles.view}>
-              <Text style={{color: 'white'}}>Highest Accuracy: </Text>
-            </View>
-            {/*--------------------------------------------------- Current Count */}
-            <View style={styles.view}>
-              <Text style={{color: 'white'}}>Pressed this Game: {count}</Text>
-            </View>
-          </View>
+          {/* ------------------------------------------------------------ Scores/Counters */}
+          <Scores count={count} />
         </View>
         {/* Padding */}
         <View style={styles.bottomHalf}>
