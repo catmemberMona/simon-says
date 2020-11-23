@@ -10,11 +10,11 @@ export default Scores = (props) => {
 
     return (
         <View style={styles.view}>
-            {/*--------------------------------------------------- Highest Count */}
+            {/* Highest Count */}
             <View style={styles.view}>
               <Text style={{color: 'white'}}>Highest Accuracy: </Text>
             </View>
-            {/*--------------------------------------------------- Current Count */}
+            {/* Current Count */}
             <View style={styles.view}>
               <Text style={{color: 'white'}}>Pressed this Game: {count}</Text>
             </View>

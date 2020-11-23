@@ -142,7 +142,7 @@ const App = () => {
       <SafeAreaView style={styles.screen}>
         {/* Padding */}
         <View style={{flex: .3}}></View> 
-        <View style={styles.nonTouchableArea}> 
+        <View style={styles.topArea}> 
           {/* Simon and Start button */}
           <Start 
             isCorrect={isCorrect} 
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     backgroundColor: 'black'
   },
-  nonTouchableArea: {
+  topArea: {
     flex: 1,
     flexDirection: 'row',
     
