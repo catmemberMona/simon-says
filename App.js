@@ -20,6 +20,7 @@ import {
 const App = () => {
 
   // counter updates after button pressed
+  // ---------------------------------------------------------------- count for the whole game
   const [count, setCount] = useState(0);
   const correct = () => {
     setCount(count+1);
@@ -27,6 +28,80 @@ const App = () => {
   const incorrect = () => {
     setCount(0);
   }
+
+
+  // ----------------------------------------------------------------- count for each rount 
+  // count starting at 1 and incrementing by 1 if user input is correct
+  const [numOfPicks, setNumOfPicks] = useState(1);
+ 
+  // number of picks decrementing to show how many inputs remaining
+  const [remainingClicks, setRemaining] = useState(0);
+
+
+  // ---------------------------------------------------- conditions for state of start button
+  const [buttonStatus, setBtnStatus] = useState(false);
+
+  const pressed = () => {
+    if (!buttonStatus) return;
+
+    // if the button is correct
+    correct();
+    // if the button is not correct
+  }
+
+  // ------------------------------------------------generating and adding simon's colors/picks
+  const [picks, setPicks] = useState([]);
+  
+  const generateRandomColors = (num) => {
+    const colors = ['red', 'green', 'yellow', 'blue'];
+    let thisPicks = [];
+    for (let i = 0; i < num; i++){
+      const randomInt = Math.floor(Math.random() * 4)
+      console.log(randomInt)
+      picks.push(colors[randomInt]);
+    }
+    setPicks(thisPicks);
+  }
+
+  const startBtn = () => {
+    // if start button was already pressed, disable start button
+    if (buttonStatus) return;
+
+    // when start button is pressed for the first time
+    generateRandomColors(numOfPicks); 
+    setRemaining(picks.length);
+    setBtnStatus(true);
+    runColors();
+  }
+
+  // ------------------------------------------------------------------- simon runs through colors in picks
+  const [color, setColor] = useState('transparent')
+  const runColors = () => {
+    let index = 0;
+
+    const run = setInterval(function(){
+        let nextColor;
+        
+        if (color === 'transparent'){
+          nextColor = picks[index];
+          index += 1; 
+        } else {
+          nextColor = 'transparent';
+        }
+
+        setColor(nextColor);
+
+        // needs to be length of array + 1 to go through all colors 
+        // will console log as 'transparent' for all
+        if (index === picks.length + 1){ 
+          setColor('transparent');
+          clearInterval(run);
+        }
+
+    }, 500); 
+  }
+
+
 
   return (
     <>
@@ -36,12 +111,30 @@ const App = () => {
         <View style={{flex: .3}}></View> 
         {/*-------------------------------------------- View for simon and score */}
         <View style={styles.nonTouchableArea}>
-          {/*------------------------------------------------------------- Simon */}
+          {/*------------------------------------------------------------- Simon and Start button */}
           <View style={styles.view}>
-            {/*---------------------------------------------------- Four buttons */}
+            {(buttonStatus) ?
+              // when game already started, button previously pressed
+              <View
+                style={{...styles.startButton, borderColor: color}}
+              >
+                <Text style={{color: 'white'}}>{remainingClicks}</Text>
+              </View> :
+              // when start button hasn't been pressed yet
+              <TouchableHighlight 
+                  underlayColor='white'
+                  style={styles.startButton}
+                  onPress={() => {
+                    startBtn();
+                  }}
+                >
+                  <Text style={{color: 'white'}}>Start</Text>
+                </TouchableHighlight>
+            }
+            
           </View>
           {/* padding */}
-          <View style={{flex: .5}}></View>
+          <View style={{flex: .6}}></View>
           {/* ------------------------------------------------------------ Count */}
           <View style={styles.view}>
             {/*--------------------------------------------------- Highest Count */}
@@ -50,7 +143,7 @@ const App = () => {
             </View>
             {/*--------------------------------------------------- Current Count */}
             <View style={styles.view}>
-              <Text style={{color: 'white'}}>Pressed this Round: {count}</Text>
+              <Text style={{color: 'white'}}>Pressed this Game: {count}</Text>
             </View>
           </View>
         </View>
@@ -70,7 +163,7 @@ const App = () => {
                   top: 25,
                   left: 133.33,
                 }}
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText, 
                   position: 'relative',
@@ -90,7 +183,7 @@ const App = () => {
                   position: 'relative',
                   left: 25,
                   ...styles.buttons,}}
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText,  
                 top: 30,
@@ -98,9 +191,6 @@ const App = () => {
                 }}>YELLOW</Text>
               </TouchableHighlight>
               {/*------------------------------------------------- Middle  */}
-              {/* <View style={{alignSelf: 'center'}}>
-                <Text>Current Count Remaining</Text>
-              </View> */}
               <TouchableHighlight 
                 underlayColor='green'
                 style={{...styles.columns, 
@@ -109,7 +199,7 @@ const App = () => {
                   right: 25,
                   backgroundColor: 'lightgreen'}
                 }
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText,
                 top: 28,
@@ -127,7 +217,7 @@ const App = () => {
                   left: 133.33,
                   backgroundColor: 'lightblue'}
                 }
-                onPress={correct}
+                onPress={pressed}
               >
                 <Text style={{...styles.colorText,
                 top: 23,
@@ -187,6 +277,16 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: '400',
+  },
+  startButton: {
+    ...this.columns, 
+    backgroundColor: 'transparent', 
+    flex: 1,
+    borderRadius: 100,
+    borderColor: 'white',
+    borderWidth: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 
   
