@@ -25,10 +25,6 @@ const App = () => {
   const correct = () => {
     setCount(count+1);
   }
-  const incorrect = () => {
-    setCount(0);
-  }
-
 
   // ----------------------------------------------------------------- count for each rount 
   // count starting at 1 and incrementing by 1 if user input is correct
@@ -36,6 +32,7 @@ const App = () => {
  
   // number of picks decrementing to show how many inputs remaining
   const [remainingClicks, setRemaining] = useState(0);
+ 
 
 
   // ---------------------------------------------------- conditions for state of start button
@@ -54,14 +51,13 @@ const App = () => {
   // ------------------------------------------------generating and adding simon's colors/picks
   const [picks, setPicks] = useState([]);
   
-  const generateRandomColors = (num) => {
+  const generateRandomColors = () => {
     const colors = ['red', 'green', 'yellow', 'blue'];
-    let thisPicks = [];
-    for (let i = 0; i < num; i++){
-      const randomInt = Math.floor(Math.random() * 4)
-      picks.push(colors[randomInt]);
-    }
-    setPicks(thisPicks);
+    
+    const randomInt = Math.floor(Math.random() * 4)
+    picks.push(colors[randomInt]); //......WHAT????? 
+    //setPicks([...picks, colors[randomInt]]) doesn't work....
+
   }
 
   const startBtn = () => {
@@ -69,14 +65,11 @@ const App = () => {
     if (!startBtnStatus) return;
 
     // when start button is pressed for the first time
-    generateRandomColors(numOfPicks); 
+    generateRandomColors(); 
     setRemaining(picks.length);
     setBtnStatus(true);
     setStartBtnStatus(false);
     runColors();
-    // need to set state again or else could not use picks inside isMatch function later on
-    // and is reset to and empty array...
-    setPicks(picks);
   }
 
   // ------------------------------------------------------------------- simon runs through colors in picks
@@ -114,6 +107,7 @@ const App = () => {
     const pick = picks[userResCount];
     console.log(usersPick, picks)
     if (usersPick === pick){
+      console.log('before:', remainingClicks)
       setRemaining(remainingClicks - 1);
       setUserResCount(userResCount + 1);
       setIsCorrect('green')
@@ -121,14 +115,40 @@ const App = () => {
         setIsCorrect('transparent');
         clearTimeout(delay);
       }, 500)
+
+
+      // remainingClicks state isn't updated yet so subtract 1
+      if (remainingClicks - 1 === 0){
+        setNumOfPicks(numOfPicks + 1);
+        
+        // when start button is pressed for the first time
+        generateRandomColors(); 
+        // console.log(picks)
+        setRemaining(picks.length);
+        runColors();
+        setUserResCount(0);
+      } 
+
+
+
+
     } else {
       setIsCorrect('red')
       const delay = setTimeout(function(){
         setIsCorrect('transparent');
         clearTimeout(delay);
-      }, 500)
-    }
+      }, 500);
 
+
+      // reset game 
+      setUserResCount(0);
+      setRemaining(0);
+      setNumOfPicks(1);
+      setCount(0);
+      setPicks([]);
+      setBtnStatus(false);
+      setStartBtnStatus(true);
+    }
   }
 
 
