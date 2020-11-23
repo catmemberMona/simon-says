@@ -39,7 +39,8 @@ const App = () => {
 
 
   // ---------------------------------------------------- conditions for state of start button
-  const [buttonStatus, setBtnStatus] = useState(false);
+  const [buttonStatus, setBtnStatus] = useState(false); // user response button
+  const [startBtnStatus, setStartBtnStatus] = useState(true);
 
   const pressed = (colorChoice) => {
     if (!buttonStatus) return;
@@ -65,12 +66,13 @@ const App = () => {
 
   const startBtn = () => {
     // if start button was already pressed, disable start button
-    if (buttonStatus) return;
+    if (!startBtnStatus) return;
 
     // when start button is pressed for the first time
     generateRandomColors(numOfPicks); 
     setRemaining(picks.length);
     setBtnStatus(true);
+    setStartBtnStatus(false);
     runColors();
     // need to set state again or else could not use picks inside isMatch function later on
     // and is reset to and empty array...
@@ -139,7 +141,7 @@ const App = () => {
         <View style={styles.nonTouchableArea}>
           {/*------------------------------------------------------------- Simon and Start button */}
           <View style={{...styles.view, backgroundColor: isCorrect}}>
-            {(buttonStatus) ?
+            {(!startBtnStatus) ?
               // when game already started, button previously pressed
               <View
                 style={{...styles.startButton, borderColor: color}}
