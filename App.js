@@ -25,10 +25,6 @@ const App = () => {
   const correct = () => {
     setCount(count+1);
   }
-  const incorrect = () => {
-    setCount(0);
-  }
-
 
   // ----------------------------------------------------------------- count for each rount 
   // count starting at 1 and incrementing by 1 if user input is correct
@@ -36,15 +32,18 @@ const App = () => {
  
   // number of picks decrementing to show how many inputs remaining
   const [remainingClicks, setRemaining] = useState(0);
+ 
 
 
   // ---------------------------------------------------- conditions for state of start button
-  const [buttonStatus, setBtnStatus] = useState(false);
+  const [buttonStatus, setBtnStatus] = useState(false); // user response button
+  const [startBtnStatus, setStartBtnStatus] = useState(true);
 
-  const pressed = () => {
+  const pressed = (colorChoice) => {
     if (!buttonStatus) return;
-
+    // console.log('remainingClicks inside pressed func:', remainingClicks)
     // if the button is correct
+    isMatch(colorChoice);
     correct();
     // if the button is not correct
   }
@@ -52,25 +51,24 @@ const App = () => {
   // ------------------------------------------------generating and adding simon's colors/picks
   const [picks, setPicks] = useState([]);
   
-  const generateRandomColors = (num) => {
+  const generateRandomColors = () => {
     const colors = ['red', 'green', 'yellow', 'blue'];
-    let thisPicks = [];
-    for (let i = 0; i < num; i++){
-      const randomInt = Math.floor(Math.random() * 4)
-      console.log(randomInt)
-      picks.push(colors[randomInt]);
-    }
-    setPicks(thisPicks);
+    
+    const randomInt = Math.floor(Math.random() * 4)
+    picks.push(colors[randomInt]); //......WHAT????? 
+    //setPicks([...picks, colors[randomInt]]) doesn't work....
+
   }
 
   const startBtn = () => {
     // if start button was already pressed, disable start button
-    if (buttonStatus) return;
+    if (!startBtnStatus) return;
 
     // when start button is pressed for the first time
-    generateRandomColors(numOfPicks); 
+    generateRandomColors(); 
     setRemaining(picks.length);
     setBtnStatus(true);
+    setStartBtnStatus(false);
     runColors();
   }
 
@@ -91,15 +89,69 @@ const App = () => {
 
         setColor(nextColor);
 
-        // needs to be length of array + 1 to go through all colors 
-        // will console log as 'transparent' for all
+        // needs to be length of arr plus 1 to go through all colors 
+        // will console log color as 'transparent' for all
         if (index === picks.length + 1){ 
           setColor('transparent');
           clearInterval(run);
         }
 
-    }, 500); 
+    }, 800); 
   }
+
+  // ------------------------------------------------------------------- match user input for color chosen 
+  const [isCorrect, setIsCorrect] = useState('transparent');
+  const [userResCount, setUserResCount] = useState(0);
+  const isMatch = (usersPick) => {
+    
+    const pick = picks[userResCount];
+    console.log(usersPick, picks)
+    if (usersPick === pick){
+      console.log('before:', remainingClicks)
+      setRemaining(remainingClicks - 1);
+      setUserResCount(userResCount + 1);
+      setIsCorrect('green')
+      const delay = setTimeout(function(){
+        setIsCorrect('transparent');
+        clearTimeout(delay);
+      }, 500)
+
+
+      // remainingClicks state isn't updated yet so subtract 1
+      if (remainingClicks - 1 === 0){
+        setNumOfPicks(numOfPicks + 1);
+        
+        // when start button is pressed for the first time
+        generateRandomColors(); 
+        // console.log(picks)
+        setRemaining(picks.length);
+        runColors();
+        setUserResCount(0);
+      } 
+
+
+
+
+    } else {
+      setIsCorrect('red')
+      const delay = setTimeout(function(){
+        setIsCorrect('transparent');
+        clearTimeout(delay);
+      }, 500);
+
+
+      // reset game 
+      setUserResCount(0);
+      setRemaining(0);
+      setNumOfPicks(1);
+      setCount(0);
+      setPicks([]);
+      setBtnStatus(false);
+      setStartBtnStatus(true);
+    }
+  }
+
+
 
 
 
@@ -112,8 +164,8 @@ const App = () => {
         {/*-------------------------------------------- View for simon and score */}
         <View style={styles.nonTouchableArea}>
           {/*------------------------------------------------------------- Simon and Start button */}
-          <View style={styles.view}>
-            {(buttonStatus) ?
+          <View style={{...styles.view, backgroundColor: isCorrect}}>
+            {(!startBtnStatus) ?
               // when game already started, button previously pressed
               <View
                 style={{...styles.startButton, borderColor: color}}
@@ -126,6 +178,7 @@ const App = () => {
                   style={styles.startButton}
                   onPress={() => {
                     startBtn();
+                    // console.log('picks inside of touch start button onpress:', picks)
                   }}
                 >
                   <Text style={{color: 'white'}}>Start</Text>
@@ -163,7 +216,9 @@ const App = () => {
                   top: 25,
                   left: 133.33,
                 }}
-                onPress={pressed}
+                onPress={() => {
+                  // console.log('picks inside of button onpress:', picks)
+                  pressed('red')}}
               >
                 <Text style={{...styles.colorText, 
                   position: 'relative',
@@ -183,7 +238,7 @@ const App = () => {
                   position: 'relative',
                   left: 25,
                   ...styles.buttons,}}
-                onPress={pressed}
+                onPress={() => pressed('yellow')}
               >
                 <Text style={{...styles.colorText,  
                 top: 30,
@@ -193,13 +248,13 @@ const App = () => {
               {/*------------------------------------------------- Middle  */}
               <TouchableHighlight 
                 underlayColor='green'
-                style={{...styles.columns, 
+                style={{...styles.columns,
                   ...styles.buttons, 
                   position: 'absolute',
                   right: 25,
                   backgroundColor: 'lightgreen'}
                 }
-                onPress={pressed}
+                onPress={() => pressed('green')}
               >
                 <Text style={{...styles.colorText,
                 top: 28,
@@ -217,7 +272,7 @@ const App = () => {
                   left: 133.33,
                   backgroundColor: 'lightblue'}
                 }
-                onPress={pressed}
+                onPress={() => pressed('blue')}
               >
                 <Text style={{...styles.colorText,
                 top: 23,
