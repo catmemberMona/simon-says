@@ -89,16 +89,16 @@ const App = () => {
         
         if (color === 'transparent'){
           nextColor = picks[index];
-          index -= 1; 
+          index += 1; 
         } else {
           nextColor = 'transparent';
         }
 
         setColor(nextColor);
 
-        // needs to be -2 to go through all colors 
+        // needs to be length of arr plus 1 to go through all colors 
         // will console log color as 'transparent' for all
-        if (index === -2){ 
+        if (index === picks.length + 1){ 
           setColor('transparent');
           clearInterval(run);
         }
