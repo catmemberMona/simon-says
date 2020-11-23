@@ -87,21 +87,21 @@ const App = () => {
         
         if (color === 'transparent'){
           nextColor = picks[index];
-          index += 1; 
+          index -= 1; 
         } else {
           nextColor = 'transparent';
         }
 
         setColor(nextColor);
 
-        // needs to be length of array + 1 to go through all colors 
-        // will console log as 'transparent' for all
-        if (index === picks.length + 1){ 
+        // needs to be -2 to go through all colors 
+        // will console log color as 'transparent' for all
+        if (index === -2){ 
           setColor('transparent');
           clearInterval(run);
         }
 
-    }, 500); 
+    }, 800); 
   }
 
   // ------------------------------------------------------------------- match user input for color chosen 
