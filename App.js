@@ -71,6 +71,34 @@ const App = () => {
     generateRandomColors(numOfPicks); 
     setRemaining(picks.length);
     setBtnStatus(true);
+    runColors();
+  }
+
+  // ------------------------------------------------------------------- simon runs through colors in picks
+  const [color, setColor] = useState('transparent')
+  const runColors = () => {
+    let index = 0;
+
+    const run = setInterval(function(){
+        let nextColor;
+        
+        if (color === 'transparent'){
+          nextColor = picks[index];
+          index += 1; 
+        } else {
+          nextColor = 'transparent';
+        }
+
+        setColor(nextColor);
+
+        // needs to be length of array + 1 to go through all colors 
+        // will console log as 'transparent' for all
+        if (index === picks.length + 1){ 
+          setColor('transparent');
+          clearInterval(run);
+        }
+
+    }, 500); 
   }
 
 
@@ -88,7 +116,7 @@ const App = () => {
             {(buttonStatus) ?
               // when game already started, button previously pressed
               <View
-                style={styles.startButton}
+                style={{...styles.startButton, borderColor: color}}
               >
                 <Text style={{color: 'white'}}>{remainingClicks}</Text>
               </View> :
@@ -256,7 +284,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 100,
     borderColor: 'white',
-    borderWidth: 3,
+    borderWidth: 5,
     justifyContent: 'center',
     alignItems: 'center'
   }
