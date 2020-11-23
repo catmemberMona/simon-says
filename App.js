@@ -10,15 +10,16 @@ import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
-  Text,
   StatusBar,
-  TouchableHighlight,
 } from 'react-native';
 
-const App = () => {
+import Start from './Componenets/Start'
+import Scores from './Componenets/Scores'
+import UserResponse from './Componenets/UserResponse';
 
+
+const App = () => {
   // counter updates after button pressed
   // ---------------------------------------------------------------- count for the whole game
   const [count, setCount] = useState(0);
@@ -105,7 +106,7 @@ const App = () => {
   const isMatch = (usersPick) => {
     
     const pick = picks[userResCount];
-    console.log(usersPick, picks)
+    // console.log(usersPick, picks)
     if (usersPick === pick){
       console.log('before:', remainingClicks)
       setRemaining(remainingClicks - 1);
@@ -161,126 +162,24 @@ const App = () => {
       <SafeAreaView style={styles.screen}>
         {/* Padding */}
         <View style={{flex: .3}}></View> 
-        {/*-------------------------------------------- View for simon and score */}
-        <View style={styles.nonTouchableArea}>
-          {/*------------------------------------------------------------- Simon and Start button */}
-          <View style={{...styles.view, backgroundColor: isCorrect}}>
-            {(!startBtnStatus) ?
-              // when game already started, button previously pressed
-              <View
-                style={{...styles.startButton, borderColor: color}}
-              >
-                <Text style={{color: 'white'}}>{remainingClicks}</Text>
-              </View> :
-              // when start button hasn't been pressed yet
-              <TouchableHighlight 
-                  underlayColor='white'
-                  style={styles.startButton}
-                  onPress={() => {
-                    startBtn();
-                    // console.log('picks inside of touch start button onpress:', picks)
-                  }}
-                >
-                  <Text style={{color: 'white'}}>Start</Text>
-                </TouchableHighlight>
-            }
-            
-          </View>
+        <View style={styles.topArea}> 
+          {/* Simon and Start button */}
+          <Start 
+            isCorrect={isCorrect} 
+            startBtnStatus={startBtnStatus} 
+            color={color} 
+            remainingClicks={remainingClicks} 
+            startBtn={startBtn}
+            />
           {/* padding */}
           <View style={{flex: .6}}></View>
-          {/* ------------------------------------------------------------ Count */}
-          <View style={styles.view}>
-            {/*--------------------------------------------------- Highest Count */}
-            <View style={styles.view}>
-              <Text style={{color: 'white'}}>Highest Accuracy: </Text>
-            </View>
-            {/*--------------------------------------------------- Current Count */}
-            <View style={styles.view}>
-              <Text style={{color: 'white'}}>Pressed this Game: {count}</Text>
-            </View>
-          </View>
+          {/* Scores/Counters */}
+          <Scores count={count} />
         </View>
         {/* Padding */}
         <View style={styles.bottomHalf}>
-          {/* -------------------------------------------------View for Touch area */}
-          <View style={styles.interactiveArea}>
-            {/* ------------------------------------------------------Four cirlces */}
-            {/*--------------------------------------------------------- First row */}
-            <View style={{...styles.rows}}>
-              <TouchableHighlight 
-                underlayColor='red'
-                style={{...styles.columns, 
-                  backgroundColor: 'pink', 
-                  ...styles.buttons,
-                  position: 'relative',
-                  top: 25,
-                  left: 133.33,
-                }}
-                onPress={() => {
-                  // console.log('picks inside of button onpress:', picks)
-                  pressed('red')}}
-              >
-                <Text style={{...styles.colorText, 
-                  position: 'relative',
-                  top: 20,
-                  left: 32
-                  }}>RED</Text>
-              </TouchableHighlight>
-            </View>
-            {/*--------------------------------------------------------- Second row */}
-            <View style={{...styles.rows, 
-              position: 'relative'
-            }}>
-              <TouchableHighlight 
-                underlayColor='yellow'
-                style={{...styles.columns, 
-                  backgroundColor: 'lightyellow',
-                  position: 'relative',
-                  left: 25,
-                  ...styles.buttons,}}
-                onPress={() => pressed('yellow')}
-              >
-                <Text style={{...styles.colorText,  
-                top: 30,
-                left: 15
-                }}>YELLOW</Text>
-              </TouchableHighlight>
-              {/*------------------------------------------------- Middle  */}
-              <TouchableHighlight 
-                underlayColor='green'
-                style={{...styles.columns,
-                  ...styles.buttons, 
-                  position: 'absolute',
-                  right: 25,
-                  backgroundColor: 'lightgreen'}
-                }
-                onPress={() => pressed('green')}
-              >
-                <Text style={{...styles.colorText,
-                top: 28,
-                left: 20
-                }}>GREEN</Text>
-              </TouchableHighlight>
-            </View>
-            {/*--------------------------------------------------------- Third row */}
-            <View style={{...styles.rows, justifyContent: 'center'}}>
-              <TouchableHighlight 
-                underlayColor='blue'
-                style={{...styles.columns,
-                  ...styles.buttons, 
-                  bottom: 25,
-                  left: 133.33,
-                  backgroundColor: 'lightblue'}
-                }
-                onPress={() => pressed('blue')}
-              >
-                <Text style={{...styles.colorText,
-                top: 23,
-                left: 26
-                }}>BLUE</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
+          {/* View for Touch area/ User Says buttons */}
+          <UserResponse pressed={pressed}/>
         </View>
         
       </SafeAreaView>
@@ -293,60 +192,17 @@ const styles = StyleSheet.create({
     flex: 1, 
     backgroundColor: 'black'
   },
-  view:{
-    flex: 1,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'white'
-
-  },
-  nonTouchableArea: {
+  topArea: {
     flex: 1,
     flexDirection: 'row',
     
-  },
-  counterView: {
-
   },
   bottomHalf: {
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  interactiveArea: {
-    width: 400,
-    height: 400,
-  },
-  rows: {
-    flex: 1,
-  },
-  buttons:{
-    width: 133,
-    height: 133,
-    borderRadius: 25,
-    transform: [{ rotate: "45deg" }]
 
-  },
-  colorText: {
-    transform: [{ rotate: "-45deg" }],
-    color: 'black',
-    fontSize: 20,
-    fontWeight: '400',
-  },
-  startButton: {
-    ...this.columns, 
-    backgroundColor: 'transparent', 
-    flex: 1,
-    borderRadius: 100,
-    borderColor: 'white',
-    borderWidth: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-
-  
-
-  
 });
 
 
