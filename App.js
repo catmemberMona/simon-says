@@ -108,13 +108,14 @@ const App = () => {
 
   // ------------------------------------------------------------------- match user input for color chosen 
   const [isCorrect, setIsCorrect] = useState('transparent');
+  const [userResCount, setUserResCount] = useState(0);
   const isMatch = (usersPick) => {
     
-    const index = remainingClicks - 1; // might need to run colors backwards
-    const pick = picks[index]
+    const pick = picks[userResCount];
     console.log(usersPick, picks)
     if (usersPick === pick){
       setRemaining(remainingClicks - 1);
+      setUserResCount(userResCount + 1);
       setIsCorrect('green')
       const delay = setTimeout(function(){
         setIsCorrect('transparent');
@@ -127,7 +128,10 @@ const App = () => {
         clearTimeout(delay);
       }, 500)
     }
+
   }
+
+
 
 
 
