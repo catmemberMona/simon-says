@@ -13,7 +13,6 @@ import {
   StyleSheet,
   View,
   StatusBar,
-  Alert,
 } from 'react-native';
 
 import Start from './Componenets/Start'

@@ -41,14 +41,14 @@ const styles = StyleSheet.create({
       flex: 1,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: 'white'
-  
+      borderColor: 'white',
+      borderRadius: 25,
     },
     startButton: {
         ...this.columns, 
         backgroundColor: 'transparent', 
         flex: 1,
-        borderRadius: 100,
+        borderRadius: 25,
         borderColor: 'white',
         borderWidth: 5,
         justifyContent: 'center',
