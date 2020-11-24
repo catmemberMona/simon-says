@@ -45,7 +45,7 @@ const App = () => {
     // console.log('remainingClicks inside pressed func:', remainingClicks)
     // if the button is correct
     isMatch(colorChoice);
-    correct();
+    
     // if the button is not correct
   }
 
@@ -112,6 +112,7 @@ const App = () => {
       setRemaining(remainingClicks - 1);
       setUserResCount(userResCount + 1);
       setIsCorrect('green')
+      correct(); // note * counter works, update same state in same function call will override previous set 
       const delay = setTimeout(function(){
         setIsCorrect('transparent');
         clearTimeout(delay);
