@@ -80,22 +80,25 @@ const App = () => {
   const runColors = () => {
     let index = 0;
 
+    let runningPicks = [];
+    for (let i = 0; i < picks.length; i++){
+      runningPicks.push(picks[i]);
+      runningPicks.push('transparent');
+    }
+
+    
+
     const run = setInterval(function(){
         let nextColor;
         
-        if (color === 'transparent'){
-          nextColor = picks[index];
-          index += 1; 
-        } else {
-          nextColor = 'transparent';
-        }
+        nextColor = runningPicks[index];
+        index+=1;
 
         setColor(nextColor);
 
         // needs to be length of arr plus 1 to go through all colors 
         // will console log color as 'transparent' for all
-        if (index === picks.length + 1){ 
-          setColor('transparent');
+        if (index === runningPicks.length){ 
           clearInterval(run);
         }
 
