@@ -7,6 +7,7 @@
  */
 
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,6 +19,7 @@ import Start from './Componenets/Start'
 import Scores from './Componenets/Scores'
 import UserResponse from './Componenets/UserResponse';
 
+console.log(AsyncStorage)
 
 const App = () => {
   // counter updates after button pressed
