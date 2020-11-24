@@ -86,9 +86,8 @@ const App = () => {
       runningPicks.push('transparent');
     }
 
-    
-
-    const run = setInterval(function(){
+    const delay = setTimeout(function(){
+      const run = setInterval(function(){
         let nextColor;
         
         nextColor = runningPicks[index];
@@ -102,7 +101,10 @@ const App = () => {
           clearInterval(run);
         }
 
-    }, 800); 
+      }, 800); 
+      
+      clearTimeout(delay);
+    }, 500)
   }
 
   // ------------------------------------------------------------------- match user input for color chosen 
