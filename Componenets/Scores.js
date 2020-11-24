@@ -6,13 +6,13 @@ import {
 } from 'react-native';
 
 export default Scores = (props) => {
-    let {count} = props;
+    let {count, highScore} = props;
 
     return (
         <View style={styles.view}>
             {/* Highest Count */}
             <View style={styles.view}>
-              <Text style={{color: 'white'}}>Highest Accuracy: </Text>
+            <Text style={{color: 'white'}}>Highest Accuracy: {highScore}</Text>
             </View>
             {/* Current Count */}
             <View style={styles.view}>
