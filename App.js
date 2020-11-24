@@ -13,13 +13,13 @@ import {
   StyleSheet,
   View,
   StatusBar,
+  Alert,
 } from 'react-native';
 
 import Start from './Componenets/Start'
 import Scores from './Componenets/Scores'
 import UserResponse from './Componenets/UserResponse';
 
-console.log(AsyncStorage)
 
 const App = () => {
   // counter updates after button pressed
@@ -47,6 +47,7 @@ const App = () => {
     // console.log('remainingClicks inside pressed func:', remainingClicks)
     // if the button is correct
     isMatch(colorChoice);
+    
     
     // if the button is not correct
   }
@@ -115,6 +116,7 @@ const App = () => {
       setUserResCount(userResCount + 1);
       setIsCorrect('green')
       correct(); // note * counter works, update same state in same function call will override previous set 
+      
       const delay = setTimeout(function(){
         setIsCorrect('transparent');
         clearTimeout(delay);
@@ -155,9 +157,49 @@ const App = () => {
     }
   }
 
+  // -------------save to async storage
+  const [highScore, setHighScore] = useState()
 
+  const storeData = async (value) => {
+    try {
+      console.log(typeof value, value)
+      const score = value.toString();
+      console.log(typeof score, score)
+      await AsyncStorage.setItem('@HighScore', score)
+    } catch (e) {
+      console.log('did not save');
+    }
+  }
 
+  const isHighScore = () =>{
+    if (count > highScore){
+      console.log('does it reach here??')
+      setHighScore(count);
+      storeData(count);
+    }
+  }
 
+  const getData = async () => {
+    try {
+      // Only get data on the very first render and last render of each game
+      if (!startBtnStatus) return;
+      // to clear the high score for storage for any reason 
+      // await AsyncStorage.removeItem('@HighScore')
+      const value = await AsyncStorage.getItem('@HighScore')
+      if(value !== null) {
+        // value previously stored
+        const score = parseInt(value);
+        setHighScore(score);
+      } else {
+        setHighScore(0);
+      }
+    } catch(e) {
+      console.log('did not save');
+    }
+  }
+
+  getData();
+  isHighScore();
 
   return (
     <>
@@ -177,7 +219,7 @@ const App = () => {
           {/* padding */}
           <View style={{flex: .6}}></View>
           {/* Scores/Counters */}
-          <Scores count={count} />
+          <Scores count={count} highScore={highScore}/>
         </View>
         {/* Padding */}
         <View style={styles.bottomHalf}>
