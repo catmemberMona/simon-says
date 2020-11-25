@@ -4,6 +4,7 @@ import {
   View,
   Text,
   TouchableHighlight,
+
 } from 'react-native';
 
 
@@ -11,13 +12,17 @@ export default Start = (props) => {
     let {isCorrect, startBtnStatus, color, remainingClicks, startBtn} = props;
 
     return (
-        <View style={{...styles.view, backgroundColor: isCorrect}}>
+        <View style={{
+          ...styles.view, 
+          borderColor: (color !== 'transparent') ? color : 'white', 
+          backgroundColor: isCorrect}}>
+
             {(!startBtnStatus) ?
               // when game already started, button previously pressed
               <View
                 style={{...styles.startButton, borderColor: color}}
               >
-                <Text style={{color: 'white'}}>{remainingClicks}</Text>
+                <Text style={styles.text}>{remainingClicks}</Text>
               </View> :
               // when start button hasn't been pressed yet
               <TouchableHighlight 
@@ -28,7 +33,7 @@ export default Start = (props) => {
                     // console.log('picks inside of touch start button onpress:', picks)
                   }}
                 >
-                  <Text style={{color: 'white'}}>Start</Text>
+                  <Text style={styles.text}>Start</Text>
                 </TouchableHighlight>
             }
             
@@ -41,17 +46,20 @@ const styles = StyleSheet.create({
       flex: 1,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: 'white'
-  
+      borderRadius: 25,
     },
     startButton: {
-        ...this.columns, 
         backgroundColor: 'transparent', 
         flex: 1,
-        borderRadius: 100,
+        borderRadius: 25,
         borderColor: 'white',
         borderWidth: 5,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    text: {
+      color: 'white',
+      fontSize: 16, 
+      fontWeight: '500'
     }
 })

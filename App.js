@@ -13,7 +13,6 @@ import {
   StyleSheet,
   View,
   StatusBar,
-  Alert,
 } from 'react-native';
 
 import Start from './Componenets/Start'
@@ -81,26 +80,31 @@ const App = () => {
   const runColors = () => {
     let index = 0;
 
-    const run = setInterval(function(){
+    let runningPicks = [];
+    for (let i = 0; i < picks.length; i++){
+      runningPicks.push(picks[i]);
+      runningPicks.push('transparent');
+    }
+
+    const delay = setTimeout(function(){
+      const run = setInterval(function(){
         let nextColor;
         
-        if (color === 'transparent'){
-          nextColor = picks[index];
-          index += 1; 
-        } else {
-          nextColor = 'transparent';
-        }
+        nextColor = runningPicks[index];
+        index+=1;
 
         setColor(nextColor);
 
         // needs to be length of arr plus 1 to go through all colors 
         // will console log color as 'transparent' for all
-        if (index === picks.length + 1){ 
-          setColor('transparent');
+        if (index === runningPicks.length){ 
           clearInterval(run);
         }
 
-    }, 800); 
+      }, 800); 
+      
+      clearTimeout(delay);
+    }, 500)
   }
 
   // ------------------------------------------------------------------- match user input for color chosen 
