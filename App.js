@@ -37,8 +37,7 @@ const App = () => {
 
 
   // ---------------------------------------------------- conditions for state of start button
-  const [buttonStatus, setBtnStatus] = useState(false); // user response button
-  const [startBtnStatus, setStartBtnStatus] = useState(true);
+
 
   const pressed = (colorChoice) => {
     if (!buttonStatus) return;
