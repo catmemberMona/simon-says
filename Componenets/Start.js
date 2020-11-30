@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
       borderStyle: 'solid',
       borderWidth: 1,
       borderRadius: 25,
+      marginLeft: 8
     },
     startButton: {
         backgroundColor: 'transparent', 
