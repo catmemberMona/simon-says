@@ -7,12 +7,20 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import greenSound from './../greenSound.wav'
+import greenSound from './../sounds/greenSound.wav';
+import yellowSound from './../sounds/yellowSound.wav';
+import blueSound from './../sounds/blue.wav';
+import redSound from './../sounds/red.wav';
 
 
 const playSoundEffect = color => {
+  let sound = redSound;
+  if (color === 'green') sound = greenSound;
+  if (color === 'blue') sound = blueSound;
+  if (color === 'yellow') sound = yellowSound;
+
   // from react-native-sound doc -- look for more info
-  var whoosh = new Sound(greenSound, (error) => {
+  var whoosh = new Sound(sound, (error) => {
     if (error) {
       console.log('failed to load the sound', error);
       return;
@@ -45,7 +53,7 @@ const RedButton = props => {
       }}
       onPress={() => {
         // console.log('picks inside of button onpress:', picks)
-        playSoundEffect();
+        playSoundEffect('red');
         pressed('red')
       }}
     >
@@ -68,7 +76,11 @@ const YellowButton = props => {
         position: 'relative',
         left: 25,
         ...styles.buttons,}}
-      onPress={() => pressed('yellow')}
+      onPress={() => {
+        playSoundEffect('yellow');
+        pressed('yellow')
+      
+      }}
     >
       <Text style={{...styles.colorText,  
       top: 30,
@@ -89,7 +101,11 @@ const GreenButton = props => {
         right: 25,
         backgroundColor: 'lightgreen'}
       }
-      onPress={() => pressed('green')}
+      onPress={() => {
+        playSoundEffect('green');
+        pressed('green')
+    
+        }}
     >
       <Text style={{...styles.colorText,
       top: 28,
@@ -110,7 +126,10 @@ const BlueButton = props => {
         left: 133.33,
         backgroundColor: 'lightblue'}
       }
-      onPress={() => pressed('blue')}
+      onPress={() => {
+        playSoundEffect('blue');
+        pressed('blue')}
+      }
     >
       <Text style={{...styles.colorText,
       top: 23,
