@@ -7,29 +7,29 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-// import greenSound from './../greenSound.wav'
+import greenSound from './../greenSound.wav'
 
 
-// const playSoundEffect = color => {
-//   // from react-native-sound doc -- look for more info
-//   var whoosh = new Sound(greenSound, Sound.MAIN_BUNDLE, (error) => {
-//     if (error) {
-//       console.log('failed to load the sound', error);
-//       return;
-//     }
-//     // loaded successfully
-//     console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+const playSoundEffect = color => {
+  // from react-native-sound doc -- look for more info
+  var whoosh = new Sound(greenSound, (error) => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
   
-//     // Play the sound with an onEnd callback
-//     whoosh.play((success) => {
-//       if (success) {
-//         console.log('successfully finished playing');
-//       } else {
-//         console.log('playback failed due to audio decoding errors');
-//       }
-//     });
-//   });
-// }
+    // Play the sound with an onEnd callback
+    whoosh.play((success) => {
+      if (success) {
+        console.log('successfully finished playing');
+      } else {
+        console.log('playback failed due to audio decoding errors');
+      }
+    });
+  });
+}
 
 const RedButton = props => {
   const {pressed, styles} = props;
@@ -45,7 +45,7 @@ const RedButton = props => {
       }}
       onPress={() => {
         // console.log('picks inside of button onpress:', picks)
-        // playSoundEffect();
+        playSoundEffect();
         pressed('red')
       }}
     >
