@@ -52,7 +52,6 @@ const RedButton = props => {
         left: 133.33,
       }}
       onPress={() => {
-        // console.log('picks inside of button onpress:', picks)
         playSoundEffect('red');
         pressed('red')
       }}
@@ -143,22 +142,18 @@ const BlueButton = props => {
 {/* Four buttons */}
 export default UserResponse = (props) => {
   const {pressed} = props;
+
   return (
     <View style={styles.interactiveArea}>
-      
-      {/*--------------------------------------------------------- First row */}
       <View style={{...styles.rows}}>
         <RedButton pressed={pressed} styles={styles} />
       </View>
-      {/*--------------------------------------------------------- Second row */}
       <View style={{...styles.rows, 
         position: 'relative'
       }}>
         <YellowButton pressed={pressed} styles={styles} />
-        {/* Middle  */}
         <GreenButton pressed={pressed} styles={styles} />
       </View>
-      {/*--------------------------------------------------------- Third row */}
       <View style={{...styles.rows, justifyContent: 'center'}}>
         <BlueButton pressed={pressed} styles={styles} />
       </View>
@@ -179,7 +174,6 @@ const styles = StyleSheet.create({
     height: 133,
     borderRadius: 25,
     transform: [{ rotate: "45deg" }]
-
   },
   colorText: {
     transform: [{ rotate: "-45deg" }],

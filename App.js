@@ -15,52 +15,59 @@ import {
   StatusBar,
 } from 'react-native';
 
-import Start from './Componenets/Start'
-import Scores from './Componenets/Scores'
+import Start from './Componenets/Start';
+import Scores from './Componenets/Scores';
 import UserResponse from './Componenets/UserResponse';
 
 
 const App = () => {
-  // counter updates after button pressed
-  // ---------------------------------------------------------------- count for the whole game
+  // count update after button pressed for the whole game
   const [count, setCount] = useState(0);
-  const correct = () => {
-    setCount(count+1);
-  }
 
-  // ----------------------------------------------------------------- count for each rount 
-  // count starting at 1 and incrementing by 1 if user input is correct
+  // count for each round 
+  // starting at 1 and incrementing by 1 if user input is correct
   const [numOfPicks, setNumOfPicks] = useState(1);
  
-  // number of picks decrementing to show how many inputs remaining
-  const [remainingClicks, setRemaining] = useState(0);
+  // number of picks decrementing to show number of responses remaining
+  const [remainingClicks, setRemaining] = useState(1);
  
-
-
-  // ---------------------------------------------------- conditions for state of start button
+  // conditions for state of start button
   const [buttonStatus, setBtnStatus] = useState(false); // user response button
   const [startBtnStatus, setStartBtnStatus] = useState(true);
 
+  // list of colors for the game
+  const [picks, setPicks] = useState([]);
+
+  // color that will show for simon 
+  const [color, setColor] = useState('transparent');
+
+  // color shown to show correctness of user choice
+  // green for incorrect, red for correct, and transparent for waiting
+  const [isCorrect, setIsCorrect] = useState('transparent');
+
+  // user response count for each round in the game
+  const [userResCount, setUserResCount] = useState(0);
+
+  // highest score the user ever had on this device
+  const [highScore, setHighScore] = useState();
+
+
+  // user's response 
   const pressed = (colorChoice) => {
+    // if game hasn't started yet
     if (!buttonStatus) return;
-    // console.log('remainingClicks inside pressed func:', remainingClicks)
-    // if the button is correct
+
+    // check to see if user response is correct or incorrect
     isMatch(colorChoice);
-    
-    
-    // if the button is not correct
   }
 
-  // ------------------------------------------------generating and adding simon's colors/picks
-  const [picks, setPicks] = useState([]);
-  
-  const generateRandomColors = () => {
+  // generating and adding simon's colors/picks
+  const generateRandomColor = () => {
     const colors = ['red', 'green', 'yellow', 'blue'];
-    
     const randomInt = Math.floor(Math.random() * 4)
-    picks.push(colors[randomInt]); //......WHAT????? 
-    //setPicks([...picks, colors[randomInt]]) doesn't work....
 
+    picks.push(colors[randomInt]);
+    //setPicks([...picks, colors[randomInt]]) doesn't work.
   }
 
   const startBtn = () => {
@@ -68,91 +75,86 @@ const App = () => {
     if (!startBtnStatus) return;
 
     // when start button is pressed for the first time
-    generateRandomColors(); 
-    setRemaining(picks.length);
+    generateRandomColor(); 
     setBtnStatus(true);
     setStartBtnStatus(false);
     runColors();
   }
 
-  // ------------------------------------------------------------------- simon runs through colors in picks
-  const [color, setColor] = useState('transparent')
+  // simon runs through colors in picks
   const runColors = () => {
     let index = 0;
-
     let runningPicks = [];
+
+    // to differentiate between each color that is running
     for (let i = 0; i < picks.length; i++){
       runningPicks.push(picks[i]);
       runningPicks.push('transparent');
     }
 
+    // slight delay to when colors start running
     const delay = setTimeout(function(){
+      // each color will appear at a set time 
       const run = setInterval(function(){
         let nextColor;
         
         nextColor = runningPicks[index];
         index+=1;
-
         setColor(nextColor);
 
-        // needs to be length of arr plus 1 to go through all colors 
-        // will console log color as 'transparent' for all
+        // once all colors have run, this loop will end
         if (index === runningPicks.length){ 
           clearInterval(run);
         }
-
       }, 800); 
-      
+
+      // once run ends, need to clear delay
       clearTimeout(delay);
     }, 500)
   }
 
-  // ------------------------------------------------------------------- match user input for color chosen 
-  const [isCorrect, setIsCorrect] = useState('transparent');
-  const [userResCount, setUserResCount] = useState(0);
+  // match user response to correct answer
   const isMatch = (usersPick) => {
-    
     const pick = picks[userResCount];
-    // console.log(usersPick, picks)
+
+    // user response is correct
     if (usersPick === pick){
-      console.log('before:', remainingClicks)
       setRemaining(remainingClicks - 1);
       setUserResCount(userResCount + 1);
       setIsCorrect('green')
-      correct(); // note * counter works, update same state in same function call will override previous set 
+      setCount(count+1);
       
+      // sets back to transparent when waiting for next response
       const delay = setTimeout(function(){
         setIsCorrect('transparent');
         clearTimeout(delay);
       }, 500)
 
-
       // remainingClicks state isn't updated yet so subtract 1
       if (remainingClicks - 1 === 0){
+        // increase the number of colors by one 
         setNumOfPicks(numOfPicks + 1);
+        generateRandomColor(); 
         
-        // when start button is pressed for the first time
-        generateRandomColors(); 
-        // console.log(picks)
+        // start of next round
         setRemaining(picks.length);
         runColors();
         setUserResCount(0);
       } 
 
-
-
-
     } else {
+      // user response is incorrect
       setIsCorrect('red')
+
+      // sets back to transparent when waiting for next response
       const delay = setTimeout(function(){
         setIsCorrect('transparent');
         clearTimeout(delay);
       }, 500);
 
-
-      // reset game 
+      // reset entire game 
       setUserResCount(0);
-      setRemaining(0);
+      setRemaining(1);
       setNumOfPicks(1);
       setCount(0);
       setPicks([]);
@@ -161,40 +163,39 @@ const App = () => {
     }
   }
 
-  // -------------save to async storage
-  const [highScore, setHighScore] = useState()
-
+  // save to async storage
   const storeData = async (value) => {
     try {
-      console.log(typeof value, value)
+      // can store str type, not int type
       const score = value.toString();
-      console.log(typeof score, score)
       await AsyncStorage.setItem('@HighScore', score)
     } catch (e) {
       console.log('did not save');
     }
   }
-
+  // only save new highScore to storage if current score is higher
   const isHighScore = () =>{
     if (count > highScore){
-      console.log('does it reach here??')
       setHighScore(count);
       storeData(count);
-    }
+    } 
   }
 
   const getData = async () => {
     try {
+      // to clear the high score from storage for any reason 
+      // await AsyncStorage.removeItem('@HighScore')
+
       // Only get data on the very first render and last render of each game
       if (!startBtnStatus) return;
-      // to clear the high score for storage for any reason 
-      // await AsyncStorage.removeItem('@HighScore')
+
       const value = await AsyncStorage.getItem('@HighScore')
       if(value !== null) {
-        // value previously stored
+        // value previously stored will return as a str type
         const score = parseInt(value);
         setHighScore(score);
       } else {
+        // high score was not previously stored 
         setHighScore(0);
       }
     } catch(e) {
@@ -202,7 +203,9 @@ const App = () => {
     }
   }
 
+  // get the saved data from local storage - high score
   getData();
+  // checks to see if current score is higher than high score
   isHighScore();
 
   return (
@@ -244,14 +247,12 @@ const styles = StyleSheet.create({
   topArea: {
     flex: 1,
     flexDirection: 'row',
-    
   },
   bottomHalf: {
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center'
   },
-
 });
 
 

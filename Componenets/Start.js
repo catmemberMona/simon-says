@@ -4,9 +4,7 @@ import {
   View,
   Text,
   TouchableHighlight,
-
 } from 'react-native';
-
 
 export default Start = (props) => {
     let {isCorrect, startBtnStatus, color, remainingClicks, startBtn} = props;
@@ -30,13 +28,11 @@ export default Start = (props) => {
                   style={styles.startButton}
                   onPress={() => {
                     startBtn();
-                    // console.log('picks inside of touch start button onpress:', picks)
                   }}
                 >
                   <Text style={styles.text}>Start</Text>
                 </TouchableHighlight>
             }
-            
         </View>
     )
 }
