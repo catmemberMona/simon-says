@@ -115,7 +115,7 @@ const App = () => {
         if (index === runningPicks.length){ 
           clearInterval(run);
         }
-      }, 800); 
+      }, 600); 
 
       // once run ends, need to clear delay
       clearTimeout(delay);
