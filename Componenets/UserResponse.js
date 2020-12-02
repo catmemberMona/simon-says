@@ -1,5 +1,4 @@
 import React from 'react';
-import Sound from 'react-native-sound';
 import {
   StyleSheet,
   View,
@@ -7,37 +6,10 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import greenSound from './../sounds/greenSound.wav';
-import yellowSound from './../sounds/yellowSound.wav';
-import blueSound from './../sounds/blue.wav';
-import redSound from './../sounds/red.wav';
 
 
-const playSoundEffect = color => {
-  let sound = redSound;
-  if (color === 'green') sound = greenSound;
-  if (color === 'blue') sound = blueSound;
-  if (color === 'yellow') sound = yellowSound;
 
-  // from react-native-sound doc -- look for more info
-  var whoosh = new Sound(sound, (error) => {
-    if (error) {
-      console.log('failed to load the sound', error);
-      return;
-    }
-    // loaded successfully
-    console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
-  
-    // Play the sound with an onEnd callback
-    whoosh.play((success) => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
-    });
-  });
-}
+
 
 const RedButton = props => {
   const {pressed, styles} = props;
@@ -52,7 +24,6 @@ const RedButton = props => {
         left: 133.33,
       }}
       onPress={() => {
-        playSoundEffect('red');
         pressed('red')
       }}
     >
@@ -75,8 +46,7 @@ const YellowButton = props => {
         position: 'relative',
         left: 25,
         ...styles.buttons,}}
-      onPress={() => {
-        playSoundEffect('yellow');
+      onPress={() => { 
         pressed('yellow')
       
       }}
@@ -101,10 +71,8 @@ const GreenButton = props => {
         backgroundColor: 'lightgreen'}
       }
       onPress={() => {
-        playSoundEffect('green');
         pressed('green')
-    
-        }}
+      }}
     >
       <Text style={{...styles.colorText,
       top: 28,
@@ -126,7 +94,6 @@ const BlueButton = props => {
         backgroundColor: 'lightblue'}
       }
       onPress={() => {
-        playSoundEffect('blue');
         pressed('blue')}
       }
     >

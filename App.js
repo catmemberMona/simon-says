@@ -8,12 +8,18 @@
 
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Sound from 'react-native-sound';
 import {
   SafeAreaView,
   StyleSheet,
   View,
   StatusBar,
 } from 'react-native';
+
+import greenSound from './sounds/greenSound.wav';
+import yellowSound from './sounds/yellowSound.wav';
+import blueSound from './sounds/blue.wav';
+import redSound from './sounds/red.wav';
 
 import Start from './Componenets/Start';
 import Scores from './Componenets/Scores';
@@ -56,6 +62,8 @@ const App = () => {
   const pressed = (colorChoice) => {
     // if game hasn't started yet
     if (!buttonStatus) return;
+
+    playSoundEffect(colorChoice);
 
     // check to see if user response is correct or incorrect
     isMatch(colorChoice);
@@ -101,6 +109,7 @@ const App = () => {
         nextColor = runningPicks[index];
         index+=1;
         setColor(nextColor);
+        playSoundEffect(nextColor);
 
         // once all colors have run, this loop will end
         if (index === runningPicks.length){ 
@@ -202,6 +211,35 @@ const App = () => {
       console.log('did not save');
     }
   }
+  
+  // plays sound effects for each color 
+  const playSoundEffect = color => {
+    let sound;
+    if (color === 'green') sound = greenSound;
+    if (color === 'blue') sound = blueSound;
+    if (color === 'yellow') sound = yellowSound;
+    if (color === 'red') sound = redSound;
+    if (!sound) return;
+  
+    // from react-native-sound doc -- look for more info
+    var whoosh = new Sound(sound, (error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+    
+      // Play the sound with an onEnd callback
+      whoosh.play((success) => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    });
+  }
 
   // get the saved data from local storage - high score
   getData();
@@ -231,7 +269,7 @@ const App = () => {
         {/* Padding */}
         <View style={styles.bottomHalf}>
           {/* View for Touch area/ User Says buttons */}
-          <UserResponse pressed={pressed}/>
+          <UserResponse pressed={pressed} />
         </View>
         
       </SafeAreaView>
