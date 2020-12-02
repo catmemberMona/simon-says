@@ -32,18 +32,18 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: 'white',
       borderRadius: 5,
-      marginRight: 8
+      marginRight: 8,
     },
     scoreText: {
+      flex: 1,
       color: 'white',
       textAlign: 'center',
-      marginTop: 2
     },
     scoreCount:{
+      flex: 1.3,
       color: 'white',
       textAlign: 'center',
       fontSize: 16,
       fontWeight: '500',
-      marginTop: 12,
     }
 })
