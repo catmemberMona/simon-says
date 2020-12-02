@@ -11,12 +11,14 @@ export default Scores = (props) => {
     return (
         <View style={styles.view}>
             {/* Highest Count */}
-            <View style={styles.view}>
-            <Text style={{color: 'white'}}>Highest Accuracy: {highScore}</Text>
+            <View style={{flex: 1, borderStyle: 'solid', borderBottomWidth: 1, borderColor: 'white'}}>
+              <Text style={styles.scoreText}>Highest Accuracy</Text>
+              <Text style={styles.scoreCount}>{highScore}</Text>
             </View>
             {/* Current Count */}
-            <View style={styles.view}>
-              <Text style={{color: 'white'}}>Pressed this Game: {count}</Text>
+            <View style={{flex: 1}}>
+              <Text style={styles.scoreText}>Correct this Game</Text>
+              <Text style={styles.scoreCount}>{count}</Text>
             </View>
         </View>
         
@@ -28,7 +30,20 @@ const styles = StyleSheet.create({
       flex: 1,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: 'white'
-  
+      borderColor: 'white',
+      borderRadius: 5,
+      marginRight: 8
+    },
+    scoreText: {
+      color: 'white',
+      textAlign: 'center',
+      marginTop: 2
+    },
+    scoreCount:{
+      color: 'white',
+      textAlign: 'center',
+      fontSize: 16,
+      fontWeight: '500',
+      marginTop: 12,
     }
 })

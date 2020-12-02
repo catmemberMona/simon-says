@@ -6,6 +6,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+
+
+
+
+
 const RedButton = props => {
   const {pressed, styles} = props;
   return (
@@ -19,8 +24,8 @@ const RedButton = props => {
         left: 133.33,
       }}
       onPress={() => {
-        // console.log('picks inside of button onpress:', picks)
-        pressed('red')}}
+        pressed('red')
+      }}
     >
       <Text style={{...styles.colorText, 
         position: 'relative',
@@ -41,7 +46,10 @@ const YellowButton = props => {
         position: 'relative',
         left: 25,
         ...styles.buttons,}}
-      onPress={() => pressed('yellow')}
+      onPress={() => { 
+        pressed('yellow')
+      
+      }}
     >
       <Text style={{...styles.colorText,  
       top: 30,
@@ -62,7 +70,9 @@ const GreenButton = props => {
         right: 25,
         backgroundColor: 'lightgreen'}
       }
-      onPress={() => pressed('green')}
+      onPress={() => {
+        pressed('green')
+      }}
     >
       <Text style={{...styles.colorText,
       top: 28,
@@ -83,7 +93,9 @@ const BlueButton = props => {
         left: 133.33,
         backgroundColor: 'lightblue'}
       }
-      onPress={() => pressed('blue')}
+      onPress={() => {
+        pressed('blue')}
+      }
     >
       <Text style={{...styles.colorText,
       top: 23,
@@ -97,22 +109,18 @@ const BlueButton = props => {
 {/* Four buttons */}
 export default UserResponse = (props) => {
   const {pressed} = props;
+
   return (
     <View style={styles.interactiveArea}>
-      
-      {/*--------------------------------------------------------- First row */}
       <View style={{...styles.rows}}>
         <RedButton pressed={pressed} styles={styles} />
       </View>
-      {/*--------------------------------------------------------- Second row */}
       <View style={{...styles.rows, 
         position: 'relative'
       }}>
         <YellowButton pressed={pressed} styles={styles} />
-        {/* Middle  */}
         <GreenButton pressed={pressed} styles={styles} />
       </View>
-      {/*--------------------------------------------------------- Third row */}
       <View style={{...styles.rows, justifyContent: 'center'}}>
         <BlueButton pressed={pressed} styles={styles} />
       </View>
@@ -133,7 +141,6 @@ const styles = StyleSheet.create({
     height: 133,
     borderRadius: 25,
     transform: [{ rotate: "45deg" }]
-
   },
   colorText: {
     transform: [{ rotate: "-45deg" }],
