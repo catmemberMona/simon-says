@@ -161,7 +161,6 @@
 				05040D906DB12C5C348E4707 /* Pods-SimonSays-tvOSTests.debug.xcconfig */,
 				1435D0E46E46CEC68ED27E46 /* Pods-SimonSays-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
